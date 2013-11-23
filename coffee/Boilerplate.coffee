@@ -49,7 +49,7 @@ class MyClass
 		 * @return {void} [description]
 		###
 		preProcess = () ->
-			# preProcess
+			# ...
 			# unless preProcess is OK 
 			# 	G.errorMessage = "..."
 			# 	G.result = 'cancel'
@@ -121,6 +121,7 @@ class MyClass
 		
 		# postProcess EOF
 
+###
 try
 	mC = new MyClass()
 	if G.result is 'cancel' then throw new Error G.errorMessage
@@ -134,6 +135,19 @@ catch e
 finally
 	G.result
 	
+###
+
+main = () ->
+	try
+		mC = new MyClass()
+		if G.result is 'cancel' then throw new Error G.errorMessage
+		mC.createDlg()
+		mC.initDlg()
+		if mC.runDlg() is 1 then mC.postProcess()
+	catch e
+		alert "#{e.message}"
+
+app.activeDocument.suspendHistory "mC Script", "main()"
 ###
 TODO: Fix suspendHistory in order to include preProcess()
 ###
